@@ -21,12 +21,13 @@ jobs:
         env:
           POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+          VOLUME_PATH: ${{ secrets.VOLUME_PATH }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          envs: POSTGRES_USER,POSTGRES_PASSWORD
+          envs: POSTGRES_USER,POSTGRES_PASSWORD,VOLUME_PATH
           script: |
             rm -r pg_storage
             git clone git@github.com:neklyud/pg_storage
