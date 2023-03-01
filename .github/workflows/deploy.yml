@@ -31,6 +31,7 @@ jobs:
             export POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }}
             git clone git@github.com:neklyud/pg_storage
             cd pg_storage
-            docker-compose up -d
+            docker-compose down
+            docker-compose up -d --build
             ls -l
  
