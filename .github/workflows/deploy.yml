@@ -3,6 +3,10 @@ on:
   push:
     branches: [main]
 
+env:
+  POSTGRES_USER = ${{ secrets.POSTGRES_USER }}
+  POSTGRES_PASSWORD = ${{ secrets.POSTGRES_PASSWORD }}
+
 jobs:
   deploy:
     runs-on: ubuntu-22.04
@@ -24,5 +28,10 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
           script: |
+            export POSTGRES_USER=${{ env.POSTGRES_USER }}
+            export POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }}
+            git clone git@github.com:neklyud/pg_storage
+            cd pg_storage
+            docker-compose up -d
             ls -l
  
