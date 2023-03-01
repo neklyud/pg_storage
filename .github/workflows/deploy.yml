@@ -1,0 +1,24 @@
+name: Build & Deploy
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-22.04
+    steps:
+    - name: Deploy postgres
+      uses: harmon758/postgresql-action@v1
+      with:
+        postgresql version: '15'
+        host: ${{ secrets.SSH_HOST }}
+        key: ${{ secrets.SSH_KEY }}
+        username: ${{ secrets.SSH_USERNAME }}
+        script: |
+          mkdir storage
+          cd storage
+          git clone git@github.com:neklyud/pg_storage
+          cd pg_storage
+          echo 'Deploy was success'
+
+ 
