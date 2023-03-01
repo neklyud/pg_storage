@@ -18,17 +18,16 @@ jobs:
       
       - name: Deploy
         uses: appleboy/ssh-action@v0.1.8
+        env:
+          POSTGRES_USER = ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD = ${{ secrets.POSTGRES_PASSWORD }}
         with:
-          env:
-            POSTGRES_USER = ${{ secrets.POSTGRES_USER }}
-            POSTGRES_PASSWORD = ${{ secrets.POSTGRES_PASSWORD }}
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
+          envs: POSTGRES_USER, POSTGRES_PASSWORD
           script: |
-            export POSTGRES_USER=${{ env.POSTGRES_USER }}
-            export POSTGRES_PASSWORD=${{ env.POSTGRES_PASSWORD }}
             git clone git@github.com:neklyud/pg_storage
             cd pg_storage
             docker-compose down
