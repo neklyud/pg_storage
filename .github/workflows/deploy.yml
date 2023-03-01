@@ -26,9 +26,9 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          envs: POSTGRES_USER, POSTGRES_PASSWORD
+          envs: POSTGRES_USER,POSTGRES_PASSWORD
           script: |
-            echo $POSTGRES_USER
+            rm -r pg_storage
             git clone git@github.com:neklyud/pg_storage
             cd pg_storage
             docker-compose down
