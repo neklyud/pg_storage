@@ -3,10 +3,6 @@ on:
   push:
     branches: [main]
 
-env:
-  POSTGRES_USER = ${{ secrets.POSTGRES_USER }}
-  POSTGRES_PASSWORD = ${{ secrets.POSTGRES_PASSWORD }}
-
 jobs:
   deploy:
     runs-on: ubuntu-22.04
@@ -22,6 +18,9 @@ jobs:
       
       - name: Deploy
         uses: appleboy/ssh-action@v0.1.8
+        env:
+          POSTGRES_USER = ${{ secrets.POSTGRES_USER }}
+          POSTGRES_PASSWORD = ${{ secrets.POSTGRES_PASSWORD }}
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USERNAME }}
